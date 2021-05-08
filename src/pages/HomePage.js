@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import movies from '../api/movies';
+import movieAPI from '../api/movies';
 import { NavLink } from 'react-router-dom';
 
 class HomePage extends Component {
@@ -14,7 +14,7 @@ class HomePage extends Component {
 
   fetchMovie = () => {
     this.setState({ loading: true });
-    movies
+    movieAPI
       .fetchTrend()
       .then(movies => this.setState({ movies }))
       .catch(err => this.setState({ error: err }))

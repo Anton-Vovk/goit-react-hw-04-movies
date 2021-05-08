@@ -2,15 +2,15 @@ import React, { Component, lazy, Suspense } from 'react';
 import { NavLink, Route } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 
-import movies from '../api/movies';
-import MovieCard from '../Components/Movie';
-import routes from '../services/routes';
+import movieAPI from '../api/movies';
+import MovieCard from '../components/Movie';
+import routes from '../routes';
 
 const asyncCast = lazy(() =>
-  import('../Components/Cast.js' /* webpackChunkName: "movie_cast" */),
+  import('../components/Cast' /* webpackChunkName: "movie_cast" */),
 );
 const asyncReviews = lazy(() =>
-  import('../Components/Reviews.js' /* webpackChunkName: "movie_reviews" */),
+  import('../components/Reviews' /* webpackChunkName: "movie_reviews" */),
 );
 
 class MovieDetailsPage extends Component {
@@ -23,9 +23,8 @@ class MovieDetailsPage extends Component {
 
   componentDidMount() {
     const { movId } = this.props.match.params;
-    // console.log(movId);
 
-    movies
+    movieAPI
       .fetchDetails(movId)
       .then(movie => this.setState({ movie, genres: movie.genres }))
       .catch(err => console.log(err));
@@ -60,7 +59,6 @@ class MovieDetailsPage extends Component {
         {movie && (
           <MovieCard
             movie={movie}
-            // poster_path={movie.poster_path}
             genres={this.state.genres.map(genre => genre.name).toString()}
           />
         )}

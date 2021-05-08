@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import getQueryParams from '../utils/getQueryParams';
-import movies from '../api/movies';
-import SearchBox from '../Components/SearchBox';
-import Loader from '../Components/Loader';
+import movieAPI from '../api/movies';
+import SearchBox from '../components/SearchBox';
+import Loader from '../components/Loader';
 
-export default class MoviesPage extends Component {
+class MoviesPage extends Component {
   state = {
     movies: [],
     loading: false,
@@ -31,7 +31,7 @@ export default class MoviesPage extends Component {
 
   fetchMovie = query => {
     this.setState({ loading: true });
-    movies
+    movieAPI
       .fetchSearch(query)
       .then(movies => this.setState({ movies }))
       .catch(err => this.setState({ error: err }))
@@ -73,3 +73,5 @@ export default class MoviesPage extends Component {
     );
   }
 }
+
+export default MoviesPage;
