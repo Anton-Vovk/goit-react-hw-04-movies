@@ -1,0 +1,23 @@
+.image {
+  width: 250px;
+}
+
+.description {
+  display: flex;
+  flex-wrap: nowrap;
+  padding-bottom: 20px;
+  border-bottom: solid 1px rgb(160, 160, 160);
+}
+
+.content {
+  margin: 20px;
+}
+
+.genre {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+.genreItem {
+  margin-right: 5px;
+}
