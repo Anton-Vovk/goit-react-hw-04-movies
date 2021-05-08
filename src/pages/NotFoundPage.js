@@ -6,10 +6,10 @@ const NotFoundPage = () => {
   return (
     <>
       <h1>404 - page not found</h1>
-      <p>
-        Teg to main page
-        <Link to={routes.home}></Link>.
-      </p>
+      <Link to={routes.home}>
+        <p>go to main page</p>
+      </Link>
+      .
     </>
   );
 };

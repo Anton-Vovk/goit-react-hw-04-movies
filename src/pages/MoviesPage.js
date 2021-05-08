@@ -1,48 +1,61 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import getQueryParams from '../utils/getQueryParams';
-import movieAPI from '../api/movies';
+import movies from '../api/movies';
 import SearchBox from '../components/SearchBox';
 import Loader from '../components/Loader';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-class MoviesPage extends Component {
+export default class MoviesPage extends Component {
   state = {
     movies: [],
-    loading: false,
-    error: null,
+    page: 1,
+    isLoading: false,
   };
 
   componentDidMount() {
-    const { query } = getQueryParams(this.props.location.search);
-
+    const query = new URLSearchParams(this.props.location.search).get('query');
     if (query) {
-      this.fetchMovie(query);
+      this.fetchMovies(query);
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { query: prevQuery } = getQueryParams(prevProps.location.search);
-    const { query: nextQuery } = getQueryParams(this.props.location.search);
+    const prevQuery = new URLSearchParams(prevProps.location.search).get(
+      'query',
+    );
+    const nextQuery = new URLSearchParams(this.props.location.search).get(
+      'query',
+    );
 
-    if (prevQuery !== nextQuery) {
-      this.fetchMovie(nextQuery);
+    if (prevQuery === nextQuery) {
+      return;
     }
-  }
 
-  fetchMovie = query => {
-    this.setState({ loading: true });
-    movieAPI
-      .fetchSearch(query)
-      .then(movies => this.setState({ movies }))
-      .catch(err => this.setState({ error: err }))
-      .finally(this.setState({ loading: false }));
+    this.fetchMovies(nextQuery);
+  }
+  fetchMovies = query => {
+    this.setState({ isLoading: true });
+    movies
+      .searchMovies(query)
+      .then(({ results }) => {
+        if (results.length === 0) {
+          toast.error(`По запросу ничего не найдено`);
+        }
+        this.setState({
+          movies: results,
+        });
+      })
+      .catch(error => toast.error('Побробуйте снова'))
+      .finally(() => this.setState({ isLoading: false }));
   };
 
-  handleChangeQuery = query => {
+  setSearchQuery = searchQuery => {
     this.props.history.push({
       ...this.props.location,
-      search: `query=${query}`,
+      search: `query=${searchQuery}`,
     });
+    this.setState({ movies: [], loading: true });
   };
 
   render() {
@@ -51,7 +64,7 @@ class MoviesPage extends Component {
 
     return (
       <>
-        <SearchBox onSubmit={this.handleChangeQuery} />
+        <SearchBox onSubmit={this.setSearchQuery} />
         {loading && <Loader />}
         {movies.length > 0 && (
           <ul>
@@ -69,9 +82,8 @@ class MoviesPage extends Component {
             ))}
           </ul>
         )}
+        <ToastContainer autoClose={3000} />
       </>
     );
   }
 }
-
-export default MoviesPage;

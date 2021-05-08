@@ -2,7 +2,7 @@ import React, { Component, lazy, Suspense } from 'react';
 import { NavLink, Route } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 
-import movieAPI from '../api/movies';
+import movies from '../api/movies';
 import MovieCard from '../components/Movie';
 import routes from '../routes';
 
@@ -24,7 +24,7 @@ class MovieDetailsPage extends Component {
   componentDidMount() {
     const { movId } = this.props.match.params;
 
-    movieAPI
+    movies
       .fetchDetails(movId)
       .then(movie => this.setState({ movie, genres: movie.genres }))
       .catch(err => console.log(err));

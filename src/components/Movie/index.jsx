@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import movieAPI from '../../api/movies';
+import movies from '../../api/movies';
 import styles from '../Movie/Movie.module.css';
 
 const MovieCard = ({ movie, genres }) => (
   <div className={styles.container}>
     <img
       className={styles.img}
-      src={`${movieAPI.BASE_IMG_URL}${movie.poster_path}`}
+      src={`${movies.BASE_IMG_URL}${movie.poster_path}`}
       alt={movie.title}
     />
     <div className={styles.description}>
