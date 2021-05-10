@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import movies from '../api/movies';
 import SearchBox from '../components/SearchBox';
 import Loader from '../components/Loader';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 export default class MoviesPage extends Component {
   state = {
@@ -31,7 +31,6 @@ export default class MoviesPage extends Component {
     if (prevQuery === nextQuery) {
       return;
     }
-
     this.fetchMovies(nextQuery);
   }
   fetchMovies = query => {
@@ -40,13 +39,13 @@ export default class MoviesPage extends Component {
       .searchMovies(query)
       .then(({ results }) => {
         if (results.length === 0) {
-          toast.error(`По запросу ничего не найдено`);
+          toast.error(`No results were found for your search.`);
         }
         this.setState({
           movies: results,
         });
       })
-      .catch(error => toast.error('Побробуйте снова'))
+      .catch(error => toast.error('Try again'))
       .finally(() => this.setState({ isLoading: false }));
   };
 

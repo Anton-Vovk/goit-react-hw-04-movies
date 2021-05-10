@@ -1,7 +1,6 @@
 import React, { Component, lazy, Suspense } from 'react';
 import { NavLink, Route } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
-
 import movies from '../api/movies';
 import MovieCard from '../components/Movie';
 import routes from '../routes';
@@ -36,8 +35,6 @@ class MovieDetailsPage extends Component {
     if (state && state.from) {
       return this.props.history.push(state.from);
     }
-
-    // переход на страницу movies, если фильм был открыт в новой вкладке
     this.props.history.push(routes.movies);
   };
 

@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Container from './components/Container';
 import NotFoundPage from './pages/NotFoundPage';
+import Loader from './components/Loader';
 import routes from './routes';
 import './App.css';
 
@@ -20,7 +21,7 @@ const MovieDetailsPage = lazy(() =>
 );
 
 const App = () => (
-  <Suspense fallback={<h1>Загружаем...</h1>}>
+  <Suspense fallback={<Loader />}>
     <Container>
       <Switch>
         <Route path={routes.home} exact component={HomePage} />

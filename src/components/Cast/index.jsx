@@ -29,7 +29,6 @@ export default class Cast extends Component {
           <>
             {loading && <Loader />}
             <h2>Actors</h2>
-
             <ul>
               {actors.map(actor => (
                 <li key={actor.id}>

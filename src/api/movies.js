@@ -16,7 +16,6 @@ const searchMovies = async query => {
     const { data } = await axios.get(`/search/movie`, {
       params: { query },
     });
-
     return data;
   } catch (error) {
     console.log('error', { error });
@@ -28,12 +27,6 @@ const fetchTrend = () => {
   return fetch(`${BASE_URL}trending/movie/day?api_key=${API_KEY}`).then(resp =>
     resp.json().then(data => data.results),
   );
-};
-
-const fetchSearch = query => {
-  return fetch(
-    `${BASE_URL}search/movie?api_key=${API_KEY}&query=${query}`,
-  ).then(resp => resp.json().then(data => data.results));
 };
 
 const fetchDetails = movieId => {
@@ -57,10 +50,9 @@ const fetchReviews = movieId => {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   BASE_IMG_URL,
-  fetchSearch,
+  searchMovies,
   fetchTrend,
   fetchDetails,
   fetchActors,
   fetchReviews,
-  searchMovies,
 };

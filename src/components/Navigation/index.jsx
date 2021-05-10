@@ -8,7 +8,6 @@ const Navigation = () => (
       <NavLink
         exact
         to={routes.home}
-        //прописать и вставить стили
         className="Navigation-link"
         activeClassName="Navigation-link-active"
       >
@@ -18,7 +17,6 @@ const Navigation = () => (
     <li>
       <NavLink
         to={routes.movies}
-        //прописать и вставить стили
         className="Navigation-link"
         activeClassName="Navigation-link-active"
       >

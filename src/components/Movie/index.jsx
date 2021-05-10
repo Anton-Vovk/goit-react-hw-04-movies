@@ -12,7 +12,6 @@ const MovieCard = ({ movie, genres }) => (
     />
     <div className={styles.description}>
       <h1>{movie.title}</h1>
-
       <h3>Genres</h3>
       <p>{genres}</p>
       <h3>Overview</h3>

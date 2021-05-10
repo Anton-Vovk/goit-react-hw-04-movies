@@ -1,12 +1,12 @@
 .navList {
   display: flex;
   list-style: none;
-
   padding-bottom: 10px;
   border-bottom: solid 1px rgb(160, 160, 160);
   padding: 10px 20px;
   margin: 0;
 }
+
 .link {
   display: block;
   margin-right: 10px;
